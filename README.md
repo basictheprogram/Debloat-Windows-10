@@ -5,8 +5,10 @@ tweak common settings and install basic software components.
 
 I develop those scripts on a Windows 10 Professional 64-Bit (English) virtual
 machine. Please let me know if you encounter any issues with other Windows 10
-versions. Although I may not spend time fixing issues related to the Home
-Edition or a different language, it's still good to know what's going on.
+versions.
+
+Home Edition and different languages are not supported. Let me know of you fork
+this repo for fixing Home Edition or a different language.
 
 Note that **there is no undo**, I recommend only using these scripts on a fresh
 install (including updates). Test everything after running them before
@@ -36,6 +38,20 @@ Unblock PowerShell scripts and modules within this directory:
 2. Edit the scripts to fit your need.
 3. Run the scripts
 4. `PS > Restart-Computer`
+
+## Startmenu
+
+In the past I included small fixes to make the startmenu more usable, like
+removing default tiles, disabling web search and so on. This is no longer the
+case since I am that fed up with it. This fucking menu breaks for apparently
+know reason, is slow, is a pain to configure / script and even shows ads out of
+the box!
+
+Please replace it with something better, either use [Classic Shell] or [Start
+is Back], but stop using that shit.
+
+[Classic Shell]: <http://www.classicshell.net/>
+[Start is Back]: <http://startisback.com/>
 
 ## Known Issues
 
