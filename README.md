@@ -38,6 +38,8 @@ Unblock PowerShell scripts and modules within this directory:
 2. Edit the scripts to fit your need.
 3. Run the scripts
 4. `PS > Restart-Computer`
+5. Run `disable-windows-defender.ps1` one more time.
+6. `PS > Restart-Computer`
 
 ## Startmenu
 
@@ -70,6 +72,19 @@ has been discovered by BK from Atlanta:
 
 You may now disable the GeoLocation service again, the search box should remain
 functional.
+
+### Sysprep will hang
+
+If you are deploying images with MDT and running these scripts, the sysprep
+step will hang unless `dmwappushserivce` is active.
+
+### XBox Wireless Adapter
+
+Apprently running the stock `remove-default-apps` script will cause XBox
+Wireless Adapters to stop functioning. I suspenc one should not remove the XBox
+App when wanting to use one. But I haven't confirmed this yet, and there is a
+workaround to re-enable it afterwards. See
+[#78](https://github.com/W4RH4WK/Debloat-Windows-10/issues/78).
 
 ## Interactivity
 

@@ -3,8 +3,9 @@
 # to remove certain Apps comment out the corresponding lines below.
 
 Import-Module -DisableNameChecking $PSScriptRoot\..\lib\take-own.psm1
+Import-Module -DisableNameChecking $PSScriptRoot\..\lib\force-mkdir.psm1
 
-echo "Elevating priviledges for this process"
+echo "Elevating privileges for this process"
 do {} until (Elevate-Privileges SeTakeOwnershipPrivilege)
 
 echo "Uninstalling default apps"
@@ -42,6 +43,8 @@ $apps = @(
     "Microsoft.ConnectivityStore"
     "Microsoft.Messaging"
     "Microsoft.Office.Sway"
+    "Microsoft.OneConnect"
+    "Microsoft.WindowsFeedbackHub"
 
     # non-Microsoft
     "9E2F88E3.Twitter"
@@ -53,6 +56,10 @@ $apps = @(
     "king.com.*"
     "ClearChannelRadioDigital.iHeartRadio"
     #"TheNewYorkTimes.NYTCrossword"
+    "DB6EA5DB.CyberLinkMediaSuiteEssentials"
+    "Facebook.Facebook"
+    "flaregamesGmbH.RoyalRevolt2"
+    "Playtika.CaesarsSlotsFreeCasino"
 
     # apps which cannot be removed using Remove-AppxPackage
     #"Microsoft.BioEnrollment"
@@ -92,3 +99,7 @@ foreach ($app in $dism_apps)
         dism /Online /Remove-ProvisionedAppxPackage /PackageName:$package
     }
 }
+
+# Prevents "Suggested Applications" returning
+force-mkdir "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Cloud Content"
+sp "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Cloud Content" "DisableWindowsConsumerFeatures" 1
