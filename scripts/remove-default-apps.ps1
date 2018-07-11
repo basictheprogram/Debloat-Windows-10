@@ -16,37 +16,63 @@ $apps = @(
     "Microsoft.BingFinance"
     "Microsoft.BingNews"
     "Microsoft.BingSports"
+    "Microsoft.BingTranslator"
     "Microsoft.BingWeather"
     "Microsoft.FreshPaint"
     "Microsoft.Getstarted"
     "Microsoft.MicrosoftOfficeHub"
     "Microsoft.MicrosoftSolitaireCollection"
+    "Microsoft.FreshPaint"
+    "Microsoft.Microsoft3DViewer"
+    "Microsoft.MicrosoftOfficeHub"
+    "Microsoft.MicrosoftSolitaireCollection"
+    "Microsoft.MicrosoftPowerBIForWindows"
+    "Microsoft.MinecraftUWP"
+    "Microsoft.MicrosoftStickyNotes"
+    "Microsoft.NetworkSpeedTest"
     "Microsoft.Office.OneNote"
     "Microsoft.People"
+    "Microsoft.Print3D"
     "Microsoft.SkypeApp"
+    "Microsoft.Windows.Photos"
+    "Microsoft.Wallet"
     "Microsoft.Windows.Photos"
     "Microsoft.WindowsAlarms"
     "Microsoft.WindowsCalculator"
     "Microsoft.WindowsCamera"
+    "microsoft.windowscommunicationsapps"
     "Microsoft.WindowsMaps"
     "Microsoft.WindowsPhone"
     "Microsoft.WindowsSoundRecorder"
     "Microsoft.WindowsStore"
     "Microsoft.XboxApp"
+	"Microsoft.XboxGameOverlay"
+    "Microsoft.XboxIdentityProvider"
+    "Microsoft.XboxSpeechToTextOverlay"
     "Microsoft.ZuneMusic"
     "Microsoft.ZuneVideo"
-    "microsoft.windowscommunicationsapps"
-    "Microsoft.MinecraftUWP"
-    "Microsoft.MicrosoftPowerBIForWindows"
-    "Microsoft.NetworkSpeedTest"
+    
     
     # Threshold 2 apps
     "Microsoft.CommsPhone"
     "Microsoft.ConnectivityStore"
+    "Microsoft.GetHelp"
+    "Microsoft.Getstarted"
     "Microsoft.Messaging"
     "Microsoft.Office.Sway"
     "Microsoft.OneConnect"
     "Microsoft.WindowsFeedbackHub"
+
+    # Creators Update apps
+    "Microsoft.Microsoft3DViewer"
+    "Microsoft.MSPaint"
+
+    #Redstone apps
+    "Microsoft.BingFoodAndDrink"
+    "Microsoft.BingTravel"
+    "Microsoft.BingHealthAndFitness"
+    "Microsoft.WindowsReadingList"
+
 
     # non-Microsoft
     "9E2F88E3.Twitter"
@@ -57,7 +83,7 @@ $apps = @(
     "king.com.CandyCrushSodaSaga"
     "king.com.*"
     "ClearChannelRadioDigital.iHeartRadio"
-    #"TheNewYorkTimes.NYTCrossword"
+    "TheNewYorkTimes.NYTCrossword"
     "DB6EA5DB.CyberLinkMediaSuiteEssentials"
     "Facebook.Facebook"
     "flaregamesGmbH.RoyalRevolt2"
@@ -70,6 +96,10 @@ $apps = @(
     "D5EA27B7.Duolingo-LearnLanguagesforFree"
     "46928bounde.EclipseManager"
     "ActiproSoftwareLLC.562882FEEB491" # next one is for the Code Writer from Actipro Software LLC
+    "DolbyLaboratories.DolbyAccess"
+    "SpotifyAB.SpotifyMusic"
+    "A278AB0D.DisneyMagicKingdoms"
+    "WinZipComputing.WinZipUniversal"
 
 
     # apps which cannot be removed using Remove-AppxPackage
