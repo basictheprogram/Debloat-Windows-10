@@ -14,6 +14,9 @@ Write-Output "Disabling telemetry via Group Policies"
 force-mkdir "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection"
 Set-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" "AllowTelemetry" 0
 
+# Entries related to Akamai have been reported to cause issues with Widevine
+# DRM.
+
 Write-Output "Adding telemetry domains to hosts file"
 $hosts_file = "$env:systemroot\System32\drivers\etc\hosts"
 $domains = @(
@@ -105,9 +108,9 @@ $domains = @(
     "secure.flashtalking.com"
     "services.wes.df.telemetry.microsoft.com"
     "settings-sandbox.data.microsoft.com"
-    "settings-win.data.microsoft.com"
+    #"settings-win.data.microsoft.com"       # may cause issues with Windows Updates
     "sls.update.microsoft.com.akadns.net"
-    "sls.update.microsoft.com.nsatc.net"
+    #"sls.update.microsoft.com.nsatc.net"    # may cause issues with Windows Updates
     "sqm.df.telemetry.microsoft.com"
     "sqm.telemetry.microsoft.com"
     "sqm.telemetry.microsoft.com.nsatc.net"
@@ -120,7 +123,6 @@ $domains = @(
     "telecommand.telemetry.microsoft.com"
     "telecommand.telemetry.microsoft.com.nsatc.net"
     "telemetry.appex.bing.net"
-    "telemetry.appex.bing.net:443"
     "telemetry.microsoft.com"
     "telemetry.urs.microsoft.com"
     "vortex-bn2.metron.live.com.nsatc.net"
@@ -140,9 +142,9 @@ $domains = @(
     "www.go.microsoft.akadns.net"
     "www.msftncsi.com"
     "client.wns.windows.com"
-    "wdcp.microsoft.com"
-    "dns.msftncsi.com"
-    "storeedgefd.dsx.mp.microsoft.com"
+    #"wdcp.microsoft.com"                       # may cause issues with Windows Defender Cloud-based protection
+    #"dns.msftncsi.com"                         # This causes Windows to think it doesn't have internet
+    #"storeedgefd.dsx.mp.microsoft.com"         # breaks Windows Store
     "wdcpalt.microsoft.com"
     "settings-ssl.xboxlive.com"
     "settings-ssl.xboxlive.com-c.edgekey.net"
@@ -152,17 +154,17 @@ $domains = @(
     "insiderservice.trafficmanager.net"
     "e3843.g.akamaiedge.net"
     "flightingserviceweurope.cloudapp.net"
-    "sls.update.microsoft.com"
-    "static.ads-twitter.com"
+    #"sls.update.microsoft.com"                 # may cause issues with Windows Updates
+    "static.ads-twitter.com"                    # may cause issues with Twitter login
     "www-google-analytics.l.google.com"
-    "p.static.ads-twitter.com"
+    "p.static.ads-twitter.com"                  # may cause issues with Twitter login
     "hubspot.net.edge.net"
     "e9483.a.akamaiedge.net"
 
     #"www.google-analytics.com"
     #"padgead2.googlesyndication.com"
-	#"mirror1.malwaredomains.com"
-	#"mirror.cedia.org.ec"
+    #"mirror1.malwaredomains.com"
+    #"mirror.cedia.org.ec"
     "stats.g.doubleclick.net"
     "stats.l.doubleclick.net"
     "adservice.google.de"
@@ -170,9 +172,8 @@ $domains = @(
     "googleads.g.doubleclick.net"
     "pagead46.l.doubleclick.net"
     "hubspot.net.edgekey.net"
-    "insiderppe.cloudapp.net" # Feedback-Hub
+    "insiderppe.cloudapp.net"                   # Feedback-Hub
     "livetileedge.dsx.mp.microsoft.com"
-    
 
     # extra
     "fe2.update.microsoft.com.akadns.net"
@@ -187,10 +188,10 @@ $domains = @(
     "wes.df.telemetry.microsoft.com"
     "m.hotmail.com"
 
-    # can cause issues with Skype (#79)
+    # can cause issues with Skype (#79) or other services (#171)
     "apps.skype.com"
     "c.msn.com"
-    "login.live.com"
+    # "login.live.com"                  # prevents login to outlook and other live apps
     "pricelist.skype.com"
     "s.gateway.messenger.live.com"
     "ui.skype.com"
@@ -213,7 +214,7 @@ $ips = @(
     "204.79.197.200"
     "23.218.212.69"
     "65.39.117.230"
-    "65.52.108.33"
+    "65.52.108.33"   # Causes problems with Microsoft Store
     "65.55.108.23"
     "64.4.54.254"
 )

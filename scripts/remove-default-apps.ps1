@@ -23,12 +23,13 @@ $apps = @(
     "Microsoft.MicrosoftOfficeHub"
     "Microsoft.MicrosoftSolitaireCollection"
     "Microsoft.FreshPaint"
+    "Microsoft.GamingServices"
     "Microsoft.Microsoft3DViewer"
     "Microsoft.MicrosoftOfficeHub"
-    "Microsoft.MicrosoftSolitaireCollection"
     "Microsoft.MicrosoftPowerBIForWindows"
-    "Microsoft.MinecraftUWP"
+    "Microsoft.MicrosoftSolitaireCollection"
     "Microsoft.MicrosoftStickyNotes"
+    "Microsoft.MinecraftUWP"
     "Microsoft.NetworkSpeedTest"
     "Microsoft.Office.OneNote"
     "Microsoft.People"
@@ -44,15 +45,16 @@ $apps = @(
     "Microsoft.WindowsMaps"
     "Microsoft.WindowsPhone"
     "Microsoft.WindowsSoundRecorder"
-    "Microsoft.WindowsStore"
+    #"Microsoft.WindowsStore"   # can't be re-installed
+    "Microsoft.Xbox.TCUI"
     "Microsoft.XboxApp"
-	"Microsoft.XboxGameOverlay"
-    "Microsoft.XboxIdentityProvider"
+    "Microsoft.XboxGameOverlay"
+    "Microsoft.XboxGamingOverlay"
     "Microsoft.XboxSpeechToTextOverlay"
+    "Microsoft.YourPhone"
     "Microsoft.ZuneMusic"
     "Microsoft.ZuneVideo"
-    
-    
+
     # Threshold 2 apps
     "Microsoft.CommsPhone"
     "Microsoft.ConnectivityStore"
@@ -69,38 +71,58 @@ $apps = @(
 
     #Redstone apps
     "Microsoft.BingFoodAndDrink"
-    "Microsoft.BingTravel"
     "Microsoft.BingHealthAndFitness"
+    "Microsoft.BingTravel"
     "Microsoft.WindowsReadingList"
 
+    # Redstone 5 apps
+    "Microsoft.MixedReality.Portal"
+    "Microsoft.ScreenSketch"
+    "Microsoft.XboxGamingOverlay"
+    "Microsoft.YourPhone"
 
     # non-Microsoft
+    "2FE3CB00.PicsArt-PhotoStudio"
+    "46928bounde.EclipseManager"
+    "4DF9E0F8.Netflix"
+    "613EBCEA.PolarrPhotoEditorAcademicEdition"
+    "6Wunderkinder.Wunderlist"
+    "7EE7776C.LinkedInforWindows"
+    "89006A2E.AutodeskSketchBook"
     "9E2F88E3.Twitter"
+    "A278AB0D.DisneyMagicKingdoms"
+    "A278AB0D.MarchofEmpires"
+    "ActiproSoftwareLLC.562882FEEB491" # next one is for the Code Writer from Actipro Software LLC
+    "CAF9E577.Plex"  
+    "ClearChannelRadioDigital.iHeartRadio"
+    "D52A8D61.FarmVille2CountryEscape"
+    "D5EA27B7.Duolingo-LearnLanguagesforFree"
+    "DB6EA5DB.CyberLinkMediaSuiteEssentials"
+    "DolbyLaboratories.DolbyAccess"
+    "DolbyLaboratories.DolbyAccess"
     "Drawboard.DrawboardPDF"
+    "Facebook.Facebook"
+    "Fitbit.FitbitCoach"
     "Flipboard.Flipboard"
+    "GAMELOFTSA.Asphalt8Airborne"
+    "KeeperSecurityInc.Keeper"
+    "Microsoft.BingNews"
+    "NORDCURRENT.COOKINGFEVER"
+    "PandoraMediaInc.29680B314EFC2"
+    "Playtika.CaesarsSlotsFreeCasino"
     "ShazamEntertainmentLtd.Shazam"
+    "SlingTVLLC.SlingTV"
+    "SpotifyAB.SpotifyMusic"
+    #"TheNewYorkTimes.NYTCrossword"
+    "ThumbmunkeysLtd.PhototasticCollage"
+    "TuneIn.TuneInRadio"
+    "WinZipComputing.WinZipUniversal"
+    "XINGAG.XING"
+    "flaregamesGmbH.RoyalRevolt2"
+    "king.com.*"
+    "king.com.BubbleWitch3Saga"
     "king.com.CandyCrushSaga"
     "king.com.CandyCrushSodaSaga"
-    "king.com.*"
-    "ClearChannelRadioDigital.iHeartRadio"
-    "TheNewYorkTimes.NYTCrossword"
-    "DB6EA5DB.CyberLinkMediaSuiteEssentials"
-    "Facebook.Facebook"
-    "flaregamesGmbH.RoyalRevolt2"
-    "Playtika.CaesarsSlotsFreeCasino"
-    "A278AB0D.MarchofEmpires"
-    "KeeperSecurityInc.Keeper"
-    "ThumbmunkeysLtd.PhototasticCollage"
-    "XINGAG.XING"
-    "89006A2E.AutodeskSketchBook"
-    "D5EA27B7.Duolingo-LearnLanguagesforFree"
-    "46928bounde.EclipseManager"
-    "ActiproSoftwareLLC.562882FEEB491" # next one is for the Code Writer from Actipro Software LLC
-    "DolbyLaboratories.DolbyAccess"
-    "SpotifyAB.SpotifyMusic"
-    "A278AB0D.DisneyMagicKingdoms"
-    "WinZipComputing.WinZipUniversal"
-
 
     # apps which cannot be removed using Remove-AppxPackage
     #"Microsoft.BioEnrollment"
@@ -108,6 +130,9 @@ $apps = @(
     #"Microsoft.Windows.Cortana"
     #"Microsoft.WindowsFeedback"
     #"Windows.ContactSupport"
+
+    # apps which other apps depend on
+    "Microsoft.Advertising.Xaml"
 )
 
 $dism_apps = @(
@@ -126,21 +151,32 @@ foreach ($app in $apps) {
         Remove-AppxProvisionedPackage -Online
 }
 
-foreach ($app in $dism_apps)
-{
-    echo "Trying to remove $app"
+# Prevents Apps from re-installing
+$cdm = @(
+    "ContentDeliveryAllowed"
+    "FeatureManagementEnabled"
+    "OemPreInstalledAppsEnabled"
+    "PreInstalledAppsEnabled"
+    "PreInstalledAppsEverEnabled"
+    "SilentInstalledAppsEnabled"
+    "SubscribedContent-314559Enabled"
+    "SubscribedContent-338387Enabled"
+    "SubscribedContent-338388Enabled"
+    "SubscribedContent-338389Enabled"
+    "SubscribedContent-338393Enabled"
+    "SubscribedContentEnabled"
+    "SystemPaneSuggestionsEnabled"
+)
 
-    $dism_app = dism /Online /Get-ProvisionedAppxpackages  | select-string $app | select-string "PackageName"
-    if ($dism_app)
-    {
-        Write-Verbose $dism_app
-        $package = $dism_app -split " : " | Select-String -NotMatch "PackageName"
-        $package = $package.ToString().Trim()
-        Write-Verbose $package
-        dism /Online /Remove-ProvisionedAppxPackage /PackageName:$package
-    }
+force-mkdir "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
+foreach ($key in $cdm) {
+    Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" $key 0
 }
 
+force-mkdir "HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore"
+Set-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore" "AutoDownload" 2
+
 # Prevents "Suggested Applications" returning
-force-mkdir "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Cloud Content"
-Set-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Cloud Content" "DisableWindowsConsumerFeatures" 1
+force-mkdir "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent"
+Set-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent" "DisableWindowsConsumerFeatures" 1
+
